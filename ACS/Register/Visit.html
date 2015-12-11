@@ -1,0 +1,275 @@
+<section class="content-header">
+    <h1>Boleta para Autorización de Ingreso
+        <small> it all starts here</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Examples</a></li>
+        <li class="active">Blank page</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+<div class="row">
+<div class="col-xs-12">
+<form class="form-horizontal">
+<div class="box box-info">
+<div class="box-header">
+    <h3 class="box-title">Autorizacion de Ingreso</h3>
+</div>
+<div class="box-body">
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <div class="form-group">
+            <label>Fecha Ingreso</label>
+            <datetimepicker min-date="visit.startDate.minDate" hour-step="visit.hourStep"
+                            minute-step="visit.minuteStep" ng-model="visit.register.startDate"
+                            show-meridian="visit.showMeridian"
+                            date-format="dd/MM/yyyy" date-options="visit.dateOptions"
+                            date-disabled="visit.disabled(date, mode)"
+                            readonly-date="false"
+                            readonly-time="false"></datetimepicker>
+            <!--show-spinners="true"-->
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <div class="form-group">
+            <label>Fecha Salida</label>
+            <datetimepicker min-date="visit.register.startDate" max-date="visit.register.startDate+7"
+                            hour-step="visit.hourStep"
+                            minute-step="visit.minuteStep" ng-model="visit.register.endDate"
+                            show-meridian="visit.showMeridian"
+                            date-format="dd/MM/yyyy" date-options="visit.dateOptions"
+                            date-disabled="visit.disabled(date, mode)"
+                            readonly-date="false"
+                            readonly-time="false"></datetimepicker>
+        </div>
+    </div>
+    <div class="col-sm-1"></div>
+</div>
+<div class="box box-warning">
+    <div class="box-body">
+        <div class="row" ng-show="false">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Ingresará Vehiculo</label>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="radio">
+                                <label>
+                                    <input name="ingresaraVehiculo" ng-click="visit.deleteVehicle()"
+                                           ng-init="visit.withVehicle=false;" ng-model="visit.withVehicle"
+                                           id="optionsRadios1" ng-value="false" checked="" type="radio">
+                                    NO
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="radio">
+                                <label>
+                                    <input name="ingresaraVehiculo" ng-model="visit.withVehicle" id="optionsRadios2"
+                                           ng-value="true" type="radio">
+                                    SI
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-10" ng-show="visit.withVehicle">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Placas</label>
+                            <input class="form-control" capitalize ng-model="visit.register.vehicle.plate"
+                                   placeholder="Placas" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Marca</label>
+                            <ui-select ng-model="visit.register.vehicle.brand" theme="selectize"
+                                       ng-disabled="disabled" style="min-width: 100%;">
+                                <ui-select-match placeholder="Seleccione o busque la Marca">
+                                    {{$select.selected.name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="brand in visit.brands | filter: $select.search">
+                                    <div ng-bind-html="brand.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Modelo</label>
+                            <select ng-model="visit.register.vehicle.model" class="form-control">
+                                <option>Corolla</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                    </div>-->
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Color</label>
+                            <ui-select ng-model="visit.register.vehicle.color" theme="selectize"
+                                       ng-disabled="disabled" style="min-width: 100%;">
+                                <ui-select-match placeholder="Seleccione o busque el Color">
+                                    {{$select.selected.name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="color in visit.colors | filter: $select.search">
+                                    <div ng-bind-html="color.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Nacionalidad</label>
+                    <!--<select class="form-control" ng-model="visit.identification.country" ng-options="option as option.name for option in visit.countrys" ></select>-->
+                    <ui-select ng-model="visit.identification.country" theme="selectize" ng-disabled="disabled"
+                               style="min-width: 100%;">
+                        <ui-select-match placeholder="Seleccione o busque el País">{{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="country in visit.countrys | filter: $select.search">
+                            <div ng-bind-html="country.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Tipo de Identificacion</label>
+                    <!--<select class="form-control" ng-model="visit.identification.identificationType" ng-options="option as option.name for option in visit.identificationTypes" ></select>-->
+                    <ui-select ng-model="visit.identification.identificationType" theme="selectize"
+                               ng-disabled="disabled" style="min-width: 100%;">
+                        <ui-select-match placeholder="Seleccion o busque el tipo de documento">
+                            {{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices
+                                repeat="identificationType in visit.identificationTypes | filter: $select.search">
+                            <div ng-bind-html="identificationType.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Numero de Identificacion</label>
+                    <input class="form-control" ng-model="visit.identification.identification" capitalize
+                           placeholder="Numero de Identificacion"
+                           type="text">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Nombres</label>
+                    <input class="form-control" ng-change="visit.updateFullName()" capitalize placeholder="Nombres"
+                           ng-model="visit.firstNames" type="text">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Apellidos</label>
+                    <input class="form-control" ng-change="visit.updateFullName()" capitalize
+                           placeholder="Apellidos" ng-model="visit.lastNames" type="text">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Genero</label>
+                    <!--
+                    <select class="form-control" ng-model="visit.register.visitor.gender">
+                        <option value="0">Masculino</option>
+                        <option value="1">Femenino</option>
+                    </select>-->
+                    <ui-select ng-model="visit.gender" theme="selectize" ng-disabled="disabled"
+                               style="min-width: 100%;">
+                        <ui-select-match placeholder="Seleccion o busque el genero">{{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="gender in main.genders | filter: $select.search">
+                            <div ng-bind-html="gender.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group">
+                    <label>Observaciones y/o Comentarios</label>
+                    <input class="form-control" ng-model="visit.register.comments" capitalize
+                           placeholder="Observaciones y/o Comentarios" type="text">
+                </div>
+            </div>
+            <div class="col-sm-2 text-center">
+                <!--
+                <a class="btn btn-app btn-success" ng-click="visit.saveRegister()">
+                    <i class="fa fa-thumbs-o-up"></i> Autorizar
+                </a>-->
+                <button type="button" ng-click="visit.saveRegister()" class="btn btn-block btn-lg btn-success"><i class="fa fa-thumbs-o-up"></i> Autorizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box box-success">
+    <div class="box-header">
+        <h3 class="box-title">Visitas Autorizadas</h3>
+
+        <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input name="table_search" class="form-control pull-right" placeholder="Search"
+                       type="text">
+
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre Completo</th>
+                <th>Status</th>
+                <th>Autorizado el</th>
+                <th>Fecha Ingreso</th>
+                <th>Fecha Salida</th>
+                <th>Dias Visita</th>
+                <th>Comentarios</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="v in visit.visitors">
+                <td>{{ v.visitor.id }}</td>
+                <td>{{ v.visitor.fullName | fullName}}</td>
+                <td><span class="label label-success">Approved</span></td>
+                <!--<td>{{ v.dateCreated|date:'dd/MM/yyyy h:mma'}}, {{ v.dateCreated|fromNow}}</td>-->
+                <td>{{ v.dateCreated|fromNow}}</td>
+                <td>{{ v.startDate|date:'dd/MM/yyyy h:mma'}}</td>
+                <td>{{ v.endDate|date:'dd/MM/yyyy h:mma'}}</td>
+                <td>{{ v.startDate | amDifference : v.endDate : 'days' }}</td>
+                <td>{{ v.comments}}</td>
+                <td><button type="button" class="btn btn-block btn-flat btn-sm btn-danger"><i class="fa fa-thumbs-o-down"></i></button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</section>
+<!-- /.content -->

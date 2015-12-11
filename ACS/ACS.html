@@ -1,0 +1,35 @@
+<div class="wrapper">
+    <header class="main-header" ui-view="viewHeader"></header>
+    <aside class="main-sidebar" ui-view="viewSideBar"></aside>
+    <div class="content-wrapper" >
+        <!--
+        <div id="loaderDiv" loader>
+            <img src="ACS/resources/js/angular-busy/loader.gif" class="ajax-loader"/>
+        </div>-->
+        <div ui-view="viewContainer"></div>
+    </div>
+    <footer class="main-footer" ui-view="viewFooter"></footer>
+</div>
+<style type="text/css">
+
+    #loaderDiv {
+        position: fixed;
+        top: 10%;
+        right: 25%;
+        bottom: 10%;
+        left: 25%;
+        z-index: 1100;
+        background-color: white;
+        opacity: .1;
+    }
+
+    .ajax-loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -32px; /* -1 * image width / 2 */
+        margin-top: -32px; /* -1 * image height / 2 */
+        display: block;
+    }
+
+</style>
